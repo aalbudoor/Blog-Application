@@ -6,4 +6,29 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
   end
+
+  # The new action instantiates a new article, but does not save it. 
+  # This article will be used in the view when building the form. By default, the new action will render
+  def new
+    @article = Article.save
+  end
+
+  # The create action instantiates a new article with values for the title and body, and attempts to save it. 
+  # If the article is saved successfully, the action redirects the browser to the article's page at 
+  # "http://localhost:3000/articles/#{@article.id}". Else, the action redisplays the 
+  # form by rendering app/views/articles/new.html.erb with status code 422 Unprocessable Entity.
+  def create
+    @article = Article.new(article_params)
+
+    if @article.save
+      redirect_to @article
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+    def article_params
+      params.require(:article).permit(:title, :body)
+    end
 end
