@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   # The new action instantiates a new article, but does not save it. 
   # This article will be used in the view when building the form. By default, the new action will render
   def new
-    @article = Article.save
+    @article = Article.new
   end
 
   # The create action instantiates a new article with values for the title and body, and attempts to save it. 
