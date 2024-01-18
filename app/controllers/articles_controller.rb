@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
 
-    if article.save
+    if @article.save
       redirect_to @article
     else
       rends :new, status: :unprocessable_entity
